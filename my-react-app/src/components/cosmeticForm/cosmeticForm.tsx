@@ -12,10 +12,11 @@ const INITIAL_FORM_STATE: ICosmeticShort = {
 interface Props {
     onSubmit: (cosmetic: ICosmeticShort) => void
     loading: boolean
+    cosmetic?: ICosmeticShort
 };
 
-const CosmeticForm = ({ onSubmit, loading }: Props) => {
-    const [formState, setFormState] = useState<ICosmeticShort>(INITIAL_FORM_STATE)
+const CosmeticForm = ({ onSubmit, loading, cosmetic }: Props) => {
+    const [formState, setFormState] = useState<ICosmeticShort>(cosmetic || INITIAL_FORM_STATE)
 
     const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -52,7 +53,7 @@ const CosmeticForm = ({ onSubmit, loading }: Props) => {
             <Button loading={loading}
                 type={'submit'}
                 variant={'contained'}>
-                Add Cosmetic
+                {cosmetic ? 'Edit Cosmetic' : 'Add Cosmetic'}
             </Button>
         </form>
     );

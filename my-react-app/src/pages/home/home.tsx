@@ -5,7 +5,11 @@ import { CosmeticCard } from '../../components/cosmeticCard/cosmeticCard';
 import styles from "./styles.module.css"
 import { Typography } from '@mui/material';
 
-export const Home = () => {
+interface Props {
+    addCosmeticToBasket: (cosmetic: ICosmetic) => void;
+}
+
+export const Home = ({ addCosmeticToBasket }: Props) => {
     const [cosmetics, setCosmetics] = useState<ICosmetic[]>([]);
     const [loading, setLoading] = useState(false);
 
@@ -37,13 +41,16 @@ export const Home = () => {
 
     return (
         <div>
-            <Typography variant={"h3"} align={'center'}>
-                Cosmetics list:
+            <Typography variant={"h4"} sx={{ fontWeight: 600, color: '#2D3436', mb: 2 }}>
+                Our Collection
+            </Typography>
+            <Typography variant={"body1"} sx={{ color: '#636E72', mb: 4 }}>
+                Discover our curated selection of premium beauty products.
             </Typography>
             <div className={styles.wrapper}>
                 {
                     cosmetics.map((cosmeticItem) => (
-                        <CosmeticCard cosmetic={cosmeticItem} key={cosmeticItem.id} />
+                        <CosmeticCard cosmetic={cosmeticItem} key={cosmeticItem.id} addCosmeticToBasket={addCosmeticToBasket} />
                     ))
                 }
             </div>

@@ -11,3 +11,14 @@ export interface ICosmeticList {
 export interface ICosmetic extends ICosmeticShort {
     id: string
 }
+
+export interface IBasket {
+  cosmetic: ICosmetic
+  count: number
+}
+
+export interface IBasketState {
+  items: IBasket[]
+  totalPrice: number
+  totalCount: number
+}
