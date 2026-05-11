@@ -11,6 +11,7 @@ import { Register } from "./pages/register/Register"
 import { Login } from "./pages/login/Login"
 import { OrderSuccess } from "./pages/orderSuccess/OrderSuccess"
 import { Wishlist } from "./pages/wishlist/Wishlist"
+import { Footer } from "./components/footer/Footer"
 import { useState } from "react"
 import type { IBasketState, ICosmetic, IUser, IOrder } from "./types"
 import { addCosmeticToBasket, increaseCosmeticCount, decreaseCosmeticCount } from "./utils/CosmeticHelpers"
@@ -101,6 +102,7 @@ function App() {
           </Routes>
         </Box>
       </Container>
+      <Footer />
     </>
   )
 }

@@ -4,6 +4,7 @@ import { axiosApi } from '../../axios';
 import { CosmeticCard } from '../../components/cosmeticCard/cosmeticCard';
 import styles from "./styles.module.css"
 import { Box, Typography } from '@mui/material';
+import { centellaProducts, needlyProducts, boutijourProducts, collagenProducts } from '../../data/dataCard';
 
 interface Props {
     addCosmeticToBasket: (cosmetic: ICosmetic) => void;
@@ -39,19 +40,6 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
         void fetchCosmetics()
     }, [fetchCosmetics]);
 
-    const centellaProducts: ICosmetic[] = [
-        { id: '1', name: '"Centella" крем для рук, 150 гр', price: 350, description: '' },
-        { id: '2', name: 'Парфюмированный гель для душа, 350 мл', price: 500, description: '' },
-        { id: '3', name: 'Гель для умывания с маслом Ши, 150 мл', price: 420, description: '' },
-        { id: '4', name: 'Увлажняющий мусс для тела, 300 мл', price: 800, description: '' },
-    ];
-
-    const needlyProducts: ICosmetic[] = [
-        { id: '5', name: 'Ночная сыворотка для лица, 30 мл', price: 520, description: '' },
-        { id: '6', name: 'Энзимная пудра для умывания, 40 гр', price: 370, description: '' },
-        { id: '7', name: 'Сыворотка с маслом Ши, 50 мл', price: 340, description: '' },
-        { id: '8', name: 'Крем для лица SPF 50+, 75 мл', price: 960, description: '' },
-    ];
 
     return (
         <Box sx={{ pb: 10 }}>
@@ -149,6 +137,59 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
                 <Box sx={{ height: '700px', borderRadius: '32px', backgroundColor: '#FFD1DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                      <Typography variant="h5" color="text.secondary">Изображение (Розовый квадрат)</Typography>
                 </Box>
+            </Box>
+
+            {/* BOUTIJOUR Section */}
+            <Box sx={{ mt: 15 }}>
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, cursor: 'pointer' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>
+                        BOUTIJOUR
+                    </Typography>
+                    <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>
+                        &gt;
+                    </Typography>
+                </Box>
+
+                <div className={styles.wrapper}>
+                    {
+                        boutijourProducts.map(cosmetic => (
+                            <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
+                        ))
+                    }
+                </div>
+            </Box>
+
+            {/* COLLAGEN Box Section */}
+            <Box sx={{ 
+                mt: 15, 
+                p: 6,
+            }}>
+                <Box sx={{ 
+                    mb: 4,
+                    textAlign: 'center'
+                }}>
+                    <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>
+                        COLLAGEN &gt;
+                    </Typography>
+                </Box>
+
+                <Box sx={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 4, height: '600px' }}>
+                    <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '24px' }} />
+                    <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '24px' }} />
+                    <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '24px' }} />
+                    <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '24px' }} />
+                </Box>
+            </Box>
+
+            {/* Final Products Grid */}
+            <Box sx={{ mt: 10 }}>
+                <div className={styles.wrapper}>
+                    {
+                        collagenProducts.map(cosmetic => (
+                            <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
+                        ))
+                    }
+                </div>
             </Box>
         </Box>
     );
