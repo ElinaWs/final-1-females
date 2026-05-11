@@ -2,7 +2,7 @@ import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import type { ICosmetic } from '../../types';
-import { Button, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router';
 
 interface Props {
@@ -17,46 +17,36 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
         navigate(`/cosmetic/${id}`)
     }
 
-    const goToEditPage = (id: string) => {
-        navigate(`/cosmetic/edit/${id}`)
-    }
     return (
         <Card className='premium-card'>
-            <CardContent sx={{ p: 3 }}>
-                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#2D3436' }}>
+            <CardContent sx={{ p: 4 }}>
+                <Typography variant="h6" sx={{ fontWeight: 600, mb: 1, color: '#000000' }}>
                     {cosmetic.name}
                 </Typography>
-                <Typography variant='h5' sx={{ color: '#E84393', fontWeight: 600, mb: 2 }}>
-                    {cosmetic.price} $
+                <Typography variant='h5' sx={{ color: '#9B7EBD', fontWeight: 700, mb: 3 }}>
+                    {cosmetic.price} сом
                 </Typography>
 
                 <CardActions sx={{ p: 0, justifyContent: 'space-between' }}>
                     <Button 
                         size="small" 
                         onClick={() => goToCosmeticPage(cosmetic.id)}
-                        sx={{ color: '#636E72', textTransform: 'none' }}
+                        sx={{ color: '#9B7EBD', textTransform: 'none', fontWeight: 600 }}
                     >
-                        Details
+                        Подробнее
                     </Button>
-                    <Box sx={{ display: 'flex', gap: 1 }}>
+                    <Box sx={{ display: 'flex', gap: 1.5 }}>
                         <Button 
                             variant="contained" 
-                            color="secondary"
+                            className="pill-button"
                             onClick={() => addCosmeticToBasket(cosmetic)}
-                            sx={{ borderRadius: '8px', textTransform: 'none', boxShadow: 'none' }}
+                            sx={{ backgroundColor: '#9B7EBD', '&:hover': { backgroundColor: '#8062A3' } }}
                         >
-                            Add
-                        </Button>
-                        <Button 
-                            variant="outlined" 
-                            onClick={() => goToEditPage(cosmetic.id)}
-                            sx={{ borderRadius: '8px', textTransform: 'none', color: '#636E72', borderColor: '#DFE6E9' }}
-                        >
-                            Edit
+                            В корзину
                         </Button>
                     </Box>
                 </CardActions>
             </CardContent>
         </Card>
     )
-}
+}

@@ -3,7 +3,7 @@ import type { ICosmetic, ICosmeticList } from '../../types';
 import { axiosApi } from '../../axios';
 import { CosmeticCard } from '../../components/cosmeticCard/cosmeticCard';
 import styles from "./styles.module.css"
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 interface Props {
     addCosmeticToBasket: (cosmetic: ICosmetic) => void;
@@ -40,22 +40,34 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
     }, [fetchCosmetics]);
 
     return (
-        <div>
-            <Typography variant={"h4"} sx={{ fontWeight: 600, color: '#2D3436', mb: 2 }}>
-                Our Collection
+        <div className="main-container">
+            <Box sx={{ mb: 8 }}>
+                <Typography variant={"h4"} sx={{ fontWeight: 700, color: '#000000', mb: 3, letterSpacing: '-1px' }}>
+                    Рекомендации для вас
+                </Typography>
+                <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2 }}>
+                    {cosmetics.slice(0, 3).map(cosmetic => (
+                        <Box key={cosmetic.id} sx={{ minWidth: '280px' }}>
+                            <CosmeticCard cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
+
+            <Typography variant={"h3"} sx={{ fontWeight: 700, color: '#000000', mb: 1, letterSpacing: '-1.5px' }}>
+                Каталог
             </Typography>
-            <Typography variant={"body1"} sx={{ color: '#636E72', mb: 4 }}>
-                Discover our curated selection of premium beauty products.
+            <Typography variant={"body1"} sx={{ color: '#636E72', mb: 6, maxWidth: '600px', fontSize: '1.1rem' }}>
+                Погрузитесь в мир красоты с нашей эксклюзивной коллекцией уходовой и декоративной косметики.
             </Typography>
             <div className={styles.wrapper}>
                 {
-                    cosmetics.map((cosmeticItem) => (
-                        <CosmeticCard cosmetic={cosmeticItem} key={cosmeticItem.id} addCosmeticToBasket={addCosmeticToBasket} />
+                    cosmetics.map(cosmetic => (
+                        <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                     ))
                 }
             </div>
         </div>
-
     );
 };
 

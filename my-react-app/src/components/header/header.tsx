@@ -5,22 +5,21 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
 
 interface Props {
     totalCount: number;
     totalPrice: number;
+    onProfileClick: () => void;
 }
 
-export const Header = ({ totalCount, totalPrice }: Props) => {
+export const Header = ({ totalCount, totalPrice, onProfileClick }: Props) => {
     const navigate = useNavigate();
 
     const gohome = () => {
         navigate("/")
     };
-
-    const goAddCosmetic = () => {
-        navigate("/cosmetic/create")
-    }
 
     const goBasket = () => {
         navigate("/basket")
@@ -28,9 +27,9 @@ export const Header = ({ totalCount, totalPrice }: Props) => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{ 
-                backgroundColor: '#fff', 
-                color: '#2D3436', 
+            <AppBar position="static" sx={{
+                backgroundColor: '#fff',
+                color: '#2D3436',
                 boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
                 padding: '8px 0'
             }}>
@@ -43,20 +42,27 @@ export const Header = ({ totalCount, totalPrice }: Props) => {
                         sx={{ mr: 2 }}
                         onClick={gohome}
                     />
-                    <Typography variant="h5" component="div" sx={{ 
-                        flexGrow: 1, 
-                        fontWeight: 600, 
-                        letterSpacing: '1px',
-                        color: '#E84393' // Rose color for brand
+                    <Typography variant="h4" component="div" sx={{
+                        flexGrow: 1,
+                        fontWeight: 700,
+                        letterSpacing: '-1px',
+                        color: '#9B7EBD'
                     }}>
-                        COSMETICA
+                        BeautyMarket
                     </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 3, mr: 3 }}>
-                        <Typography variant="body2" sx={{ fontWeight: 300 }}>Items: <b>{totalCount}</b></Typography>
-                        <Typography variant="body2" sx={{ fontWeight: 300 }}>Total: <b>{totalPrice} $</b></Typography>
-                        <Button color="secondary" variant="contained" onClick={goBasket} sx={{ borderRadius: '20px', textTransform: 'none' }}>Checkout</Button>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 4, mr: 4 }}>
+                        <Button
+                            variant="contained"
+                            onClick={goBasket}
+                            className="pill-button"
+                            sx={{ backgroundColor: '#9B7EBD', '&:hover': { backgroundColor: '#8062A3' } }}
+                        >
+                            Корзина
+                        </Button>
                     </Box>
-                    <Button color="inherit" onClick={goAddCosmetic} sx={{ textTransform: 'none' }}>Add Product</Button>
+                    <IconButton color="inherit" onClick={onProfileClick}>
+                        <AccountCircle />
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>
