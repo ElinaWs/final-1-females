@@ -1,17 +1,35 @@
-import { Box, Button, Container, Typography } from "@mui/material";
-import type { IBasketState } from "../../types";
+import { Box, Button, Container, Typography, Checkbox, FormControlLabel } from "@mui/material";
+import type { IBasket, IBasketState } from "../../types";
 import { Link } from "react-router";
 import { BasketItems } from "./BasketItems";
+import { useState } from "react";
 
 interface Props {
   basketState: IBasketState;
   onIncrease: (id: string) => void;
   onDecrease: (id: string) => void;
-  onOrder: () => void;
+  onOrder: (itemsToOrder: IBasket[]) => void;
 }
 
 export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) => {
-  const { items, totalPrice, totalCount } = basketState;
+  const { items } = basketState;
+  const [selectedIds, setSelectedIds] = useState<string[]>(items.map(i => i.cosmetic.id));
+
+  const toggleSelect = (id: string) => {
+    setSelectedIds(prev => 
+      prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
+    );
+  };
+
+  const toggleSelectAll = () => {
+    if (selectedIds.length === items.length) {
+      setSelectedIds([]);
+    } else {
+      setSelectedIds(items.map(i => i.cosmetic.id));
+    }
+  };
+
+  const selectedItems = items.filter(item => selectedIds.includes(item.cosmetic.id));
 
   if (items.length === 0) {
     return (
@@ -28,21 +46,50 @@ export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) 
 
   return (
     <Container maxWidth="md" sx={{ py: 10, textAlign: 'center' }}>
-      <Typography variant="h3" sx={{ fontWeight: 600, mb: 10, fontFamily: 'serif' }}>
+      <Typography variant="h3" sx={{ fontWeight: 600, mb: 6, fontFamily: 'serif' }}>
         Моя корзина
       </Typography>
+
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, cursor: 'pointer' }} onClick={toggleSelectAll}>
+        <Box 
+          sx={{ 
+            width: '24px', 
+            height: '24px', 
+            borderRadius: '50%', 
+            border: '2px solid #9B7EBD',
+            mr: 1.5,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            transition: 'all 0.2s',
+            backgroundColor: selectedIds.length === items.length ? '#9B7EBD' : 'transparent',
+            '&::after': {
+              content: '""',
+              width: '10px',
+              height: '10px',
+              borderRadius: '50%',
+              backgroundColor: '#fff',
+              display: selectedIds.length === items.length ? 'block' : 'none'
+            }
+          }}
+        />
+        <Typography sx={{ fontWeight: 500, color: '#2D3436' }}>Выбрать все</Typography>
+      </Box>
 
       <Box sx={{ mb: 10 }}>
         <BasketItems
           items={items}
           onIncrease={onIncrease}
           onDecrease={onDecrease}
+          selectedIds={selectedIds}
+          onToggleSelect={toggleSelect}
         />
       </Box>
 
       <Button
         variant="outlined"
-        onClick={onOrder}
+        disabled={selectedIds.length === 0}
+        onClick={() => onOrder(selectedItems)}
         sx={{ 
           color: '#E07C7C', 
           borderColor: '#E07C7C',
@@ -52,10 +99,11 @@ export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) 
           textTransform: 'none',
           fontSize: '1.2rem',
           fontWeight: 600,
-          '&:hover': { borderColor: '#E07C7C', backgroundColor: 'rgba(224, 124, 124, 0.05)' }
+          '&:hover': { borderColor: '#E07C7C', backgroundColor: 'rgba(224, 124, 124, 0.05)' },
+          '&.Mui-disabled': { borderColor: '#DFE6E9', color: '#B2BEC3' }
         }}
       >
-        оформить заказ
+        оформить заказ ({selectedItems.length})
       </Button>
     </Container>
   );

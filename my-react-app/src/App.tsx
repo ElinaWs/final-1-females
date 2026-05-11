@@ -49,16 +49,28 @@ function App() {
     setBasket(prev => addCosmeticToBasket(prev, cosmetic));
   };
 
-  const handleOrder = () => {
+  const handleOrder = (itemsToOrder: IBasketState['items']) => {
+    if (itemsToOrder.length === 0) return;
+
     const newOrder: IOrder = {
       id: Math.random().toString(36).substr(2, 9),
-      items: [...basket.items],
-      totalPrice: basket.totalPrice,
+      items: [...itemsToOrder],
+      totalPrice: itemsToOrder.reduce((acc, item) => acc + item.cosmetic.price * item.count, 0),
       status: 'in-transit',
       date: new Date().toLocaleDateString()
     }
     setOrders(prev => [newOrder, ...prev])
-    clearBasket()
+    
+    // Remove ordered items from basket
+    setBasket(prev => {
+      const remainingItems = prev.items.filter(item => 
+        !itemsToOrder.find(ordered => ordered.cosmetic.id === item.cosmetic.id)
+      );
+      const totalCount = remainingItems.reduce((acc, item) => acc + item.count, 0);
+      const totalPrice = remainingItems.reduce((acc, item) => acc + item.cosmetic.price * item.count, 0);
+      return { items: remainingItems, totalCount, totalPrice };
+    });
+
     navigate('/order-success')
   }
 

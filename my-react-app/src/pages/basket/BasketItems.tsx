@@ -1,13 +1,15 @@
-import { Box, Typography, IconButton } from "@mui/material";
+import { Box, Typography, IconButton, Checkbox } from "@mui/material";
 import type { IBasket } from "../../types";
 
 interface Props {
   items: IBasket[];
   onIncrease: (id: string) => void;
   onDecrease: (id: string) => void;
+  selectedIds: string[];
+  onToggleSelect: (id: string) => void;
 }
 
-export const BasketItems = ({ items, onIncrease, onDecrease }: Props) => {
+export const BasketItems = ({ items, onIncrease, onDecrease, selectedIds, onToggleSelect }: Props) => {
   return (
     <Box sx={{ display: "flex", flexDirection: "column" }}>
       {items.map((item, index) => (
@@ -21,7 +23,31 @@ export const BasketItems = ({ items, onIncrease, onDecrease }: Props) => {
               py: 4,
             }}
           >
-            <Box sx={{ display: 'flex', gap: 4 }}>
+            <Box sx={{ display: 'flex', gap: 4, alignItems: 'center' }}>
+              <Box 
+                onClick={() => onToggleSelect(item.cosmetic.id)}
+                sx={{ 
+                  width: '24px', 
+                  height: '24px', 
+                  borderRadius: '50%', 
+                  border: '2px solid #9B7EBD',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  transition: 'all 0.2s',
+                  backgroundColor: selectedIds.includes(item.cosmetic.id) ? '#9B7EBD' : 'transparent',
+                  '&::after': {
+                    content: '""',
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    backgroundColor: '#fff',
+                    display: selectedIds.includes(item.cosmetic.id) ? 'block' : 'none'
+                  }
+                }}
+              />
+
               {/* Image Placeholder */}
               <Box sx={{ 
                   width: '180px', 
@@ -30,7 +56,7 @@ export const BasketItems = ({ items, onIncrease, onDecrease }: Props) => {
                   borderRadius: '16px' 
               }} />
               
-              <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', height: '180px', justifyContent: 'space-between', textAlign: 'left' }}>
                 <Typography sx={{ fontWeight: 600, fontSize: '1.1rem', maxWidth: '300px' }}>
                   {item.cosmetic.name}
                 </Typography>
@@ -42,7 +68,6 @@ export const BasketItems = ({ items, onIncrease, onDecrease }: Props) => {
                     border: '1px solid #B2BEC3', 
                     borderRadius: '4px',
                     width: 'fit-content',
-                    mt: 4
                 }}>
                   <IconButton 
                     size="small" 
