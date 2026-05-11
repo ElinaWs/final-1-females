@@ -6,7 +6,10 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import { useNavigate } from 'react-router';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import { InputBase, Paper } from '@mui/material';
 
 interface Props {
     totalCount: number;
@@ -27,44 +30,92 @@ export const Header = ({ totalCount, totalPrice, onProfileClick }: Props) => {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static" sx={{
-                backgroundColor: '#fff',
-                color: '#2D3436',
-                boxShadow: '0 2px 10px rgba(0,0,0,0.05)',
-                padding: '8px 0'
-            }}>
-                <Toolbar>
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
+            {/* Top Navigation Bar */}
+            <Box sx={{ backgroundColor: '#F8F5F2', py: 1 }}>
+                <Toolbar sx={{ justifyContent: 'space-between', maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
+                    <Typography 
+                        variant="h4" 
                         onClick={gohome}
-                    />
-                    <Typography variant="h4" component="div" sx={{
-                        flexGrow: 1,
-                        fontWeight: 700,
-                        letterSpacing: '-1px',
-                        color: '#9B7EBD'
-                    }}>
+                        sx={{ 
+                            fontWeight: 700, 
+                            color: '#9B7EBD', 
+                            cursor: 'pointer',
+                            flex: 1
+                        }}
+                    >
                         BeautyMarket
                     </Typography>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 4, mr: 4 }}>
-                        <Button
-                            variant="contained"
-                            onClick={goBasket}
-                            className="pill-button"
-                            sx={{ backgroundColor: '#9B7EBD', '&:hover': { backgroundColor: '#8062A3' } }}
-                        >
-                            Корзина
-                        </Button>
+                    
+                    <Box sx={{ display: 'flex', gap: 4 }}>
+                        {['бренды', 'о нас', 'доставка', 'контакты'].map((link) => (
+                            <Button key={link} sx={{ color: '#2D3436', textTransform: 'none', fontWeight: 600, fontSize: '1.1rem' }}>
+                                {link}
+                            </Button>
+                        ))}
                     </Box>
-                    <IconButton color="inherit" onClick={onProfileClick}>
-                        <AccountCircle />
-                    </IconButton>
+                    <Box sx={{ flex: 1 }} />
                 </Toolbar>
-            </AppBar>
+            </Box>
+
+            {/* Search and Category Bar */}
+            <Box sx={{ backgroundColor: '#F0F0F0', py: 2 }}>
+                <Toolbar sx={{ gap: 2, maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
+                    <Button
+                        variant="contained"
+                        startIcon={<MenuIcon />}
+                        sx={{ 
+                            backgroundColor: '#fff', 
+                            color: '#000', 
+                            borderRadius: '50px', 
+                            textTransform: 'none',
+                            px: 4,
+                            py: 1.5,
+                            boxShadow: 'none',
+                            fontWeight: 600,
+                            '&:hover': { backgroundColor: '#f5f5f5', boxShadow: 'none' }
+                        }}
+                    >
+                        Категории
+                    </Button>
+
+                    <Paper
+                        component="form"
+                        sx={{ 
+                            p: '2px 4px', 
+                            display: 'flex', 
+                            alignItems: 'center', 
+                            flexGrow: 1, 
+                            borderRadius: '50px',
+                            boxShadow: 'none',
+                            backgroundColor: '#fff',
+                            px: 2
+                        }}
+                    >
+                        <InputBase
+                            sx={{ ml: 1, flex: 1 }}
+                            placeholder="Введите название продукта или бренда"
+                        />
+                        <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
+                            <SearchIcon />
+                        </IconButton>
+                    </Paper>
+
+                    <Box sx={{ display: 'flex', gap: 2 }}>
+                        <IconButton 
+                            onClick={onProfileClick}
+                            sx={{ backgroundColor: '#fff', '&:hover': { backgroundColor: '#f5f5f5' } }}
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                        <IconButton 
+                            onClick={goBasket}
+                            sx={{ backgroundColor: '#fff', '&:hover': { backgroundColor: '#f5f5f5' } }}
+                        >
+                            <ShoppingBasketIcon />
+                        </IconButton>
+                    </Box>
+                </Toolbar>
+            </Box>
         </Box>
     )
-};
+};

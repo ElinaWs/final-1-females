@@ -39,36 +39,119 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
         void fetchCosmetics()
     }, [fetchCosmetics]);
 
+    const centellaProducts: ICosmetic[] = [
+        { id: '1', name: '"Centella" крем для рук, 150 гр', price: 350, description: '' },
+        { id: '2', name: 'Парфюмированный гель для душа, 350 мл', price: 500, description: '' },
+        { id: '3', name: 'Гель для умывания с маслом Ши, 150 мл', price: 420, description: '' },
+        { id: '4', name: 'Увлажняющий мусс для тела, 300 мл', price: 800, description: '' },
+    ];
+
+    const needlyProducts: ICosmetic[] = [
+        { id: '5', name: 'Ночная сыворотка для лица, 30 мл', price: 520, description: '' },
+        { id: '6', name: 'Энзимная пудра для умывания, 40 гр', price: 370, description: '' },
+        { id: '7', name: 'Сыворотка с маслом Ши, 50 мл', price: 340, description: '' },
+        { id: '8', name: 'Крем для лица SPF 50+, 75 мл', price: 960, description: '' },
+    ];
+
     return (
-        <div className="main-container">
-            <Box sx={{ mb: 8 }}>
-                <Typography variant={"h4"} sx={{ fontWeight: 700, color: '#000000', mb: 3, letterSpacing: '-1px' }}>
-                    Рекомендации для вас
-                </Typography>
-                <Box sx={{ display: 'flex', gap: 3, overflowX: 'auto', pb: 2 }}>
-                    {cosmetics.slice(0, 3).map(cosmetic => (
-                        <Box key={cosmetic.id} sx={{ minWidth: '280px' }}>
-                            <CosmeticCard cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
-                        </Box>
-                    ))}
-                </Box>
+        <Box sx={{ pb: 10 }}>
+            {/* Hero Banner (Centella) */}
+            <Box sx={{ 
+                width: '100%', 
+                height: '500px', 
+                borderRadius: '32px', 
+                mb: 6,
+                backgroundColor: '#FFD1DC', // Pink placeholder
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}>
+                <Typography variant="h5" color="text.secondary">Баннер (Розовый квадрат)</Typography>
             </Box>
 
-            <Typography variant={"h3"} sx={{ fontWeight: 700, color: '#000000', mb: 1, letterSpacing: '-1.5px' }}>
-                Каталог
-            </Typography>
-            <Typography variant={"body1"} sx={{ color: '#636E72', mb: 6, maxWidth: '600px', fontSize: '1.1rem' }}>
-                Погрузитесь в мир красоты с нашей эксклюзивной коллекцией уходовой и декоративной косметики.
-            </Typography>
+            {/* Section Title */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, cursor: 'pointer' }}>
+                <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>
+                    CENTELLA Pink Collection
+                </Typography>
+                <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>
+                    &gt;
+                </Typography>
+            </Box>
+
+            {/* Product Grid */}
             <div className={styles.wrapper}>
                 {
-                    cosmetics.map(cosmetic => (
+                    centellaProducts.map(cosmetic => (
                         <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                     ))
                 }
             </div>
-        </div>
+
+            {/* NEEDLY Section */}
+            <Box sx={{ mt: 10 }}>
+                <Box sx={{ 
+                    width: '100%', 
+                    height: '500px', 
+                    borderRadius: '32px', 
+                    mb: 6,
+                    backgroundColor: '#FFD1DC', // Pink placeholder
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                }}>
+                    <Typography variant="h5" color="text.secondary">Баннер NEEDLY (Розовый квадрат)</Typography>
+                </Box>
+
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, cursor: 'pointer' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>
+                        NEEDLY
+                    </Typography>
+                    <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>
+                        &gt;
+                    </Typography>
+                </Box>
+
+                <div className={styles.wrapper}>
+                    {
+                        needlyProducts.map(cosmetic => (
+                            <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
+                        ))
+                    }
+                </div>
+            </Box>
+
+            {/* LOTUS WATER Section */}
+            <Box sx={{ mt: 15, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, alignItems: 'center' }}>
+                <Box>
+                    <Typography variant="h3" sx={{ fontWeight: 600, fontFamily: 'serif', mb: 1 }}>
+                        LOTUS WATER
+                    </Typography>
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 4, color: '#2D3436' }}>
+                        Anti-Pollution Repairing Toner
+                    </Typography>
+                    
+                    <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
+                        Деликатный восстанавливающий тонер с экстрактом лотоса, созданный для ежедневной защиты кожи в условиях города. Легкая текстура мгновенно освежает, глубоко увлажняет и помогает восстановить естественный баланс кожи.
+                    </Typography>
+                    <Box sx={{ borderBottom: '1px solid #DFE6E9', mb: 3 }} />
+                    
+                    <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
+                        Формула направлена на нейтрализацию воздействия загрязнений окружающей среды, снижая признаки усталости и укрепление защитного барьера. Кожа становится более гладкой, мягкой и сияющей уже после первых применений.
+                    </Typography>
+                    <Box sx={{ borderBottom: '1px solid #DFE6E9', mb: 3 }} />
+                    
+                    <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
+                        Экстракт Nelumbo Nucifera известен своими успокаивающими и антиоксидантными свойствами, помогая коже выглядеть чистой, свежей и здоровой. Идеально подготавливает кожу к дальнейшему уходу, усиливая действие сывороток и кремов. Подходит для всех типов кожи, включая чувствительную.
+                    </Typography>
+                </Box>
+                
+                <Box sx={{ height: '700px', borderRadius: '32px', backgroundColor: '#FFD1DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <Typography variant="h5" color="text.secondary">Изображение (Розовый квадрат)</Typography>
+                </Box>
+            </Box>
+        </Box>
     );
-};
+}
 
 export default Home;

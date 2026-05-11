@@ -1,4 +1,4 @@
-import { Container } from "@mui/material"
+import { Box, Container } from "@mui/material"
 import { Route, Routes, useNavigate } from "react-router"
 import { Header } from "./components/header/header"
 import { Home } from "./pages/home/home"
@@ -49,11 +49,11 @@ function App() {
 
   const handleOrder = () => {
     const newOrder: IOrder = {
-        id: Math.random().toString(36).substr(2, 9),
-        items: [...basket.items],
-        totalPrice: basket.totalPrice,
-        status: 'in-transit',
-        date: new Date().toLocaleDateString()
+      id: Math.random().toString(36).substr(2, 9),
+      items: [...basket.items],
+      totalPrice: basket.totalPrice,
+      status: 'in-transit',
+      date: new Date().toLocaleDateString()
     }
     setOrders(prev => [newOrder, ...prev])
     clearBasket()
@@ -62,42 +62,44 @@ function App() {
 
   const handleProfileClick = () => {
     if (user) {
-        navigate('/profile')
+      navigate('/profile')
     } else {
-        navigate('/login')
+      navigate('/login')
     }
   }
 
   return (
     <>
-      <Header 
-        totalCount={basket.totalCount} 
-        totalPrice={basket.totalPrice} 
+      <Header
+        totalCount={basket.totalCount}
+        totalPrice={basket.totalPrice}
         onProfileClick={handleProfileClick}
       />
-      <Container 
-        maxWidth={false} 
-        disableGutters 
-        style={{
-            padding: "0 40px", // Give some breathing room on the sides
-            maxWidth: '100%'
+      <Container
+        maxWidth={false}
+        disableGutters
+        sx={{
+          backgroundColor: '#FAF9F6',
+          minHeight: '100vh'
         }}
       >
-        <Routes>
-          <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} />} />
-          <Route path="/cosmetic/:id" element={<Cosmetic addCosmeticToBasket={handleAddCosmetic} />} />
-          <Route path="/basket" element={<Basket basketState={basket}
-            onIncrease={handleIncrease}
-            onDecrease={handleDecrease}
-            onOrder={handleOrder} />} />
-          <Route path="/profile" element={<Profile user={user} orders={orders} onOrderAgain={handleAddCosmetic} />} />
-          <Route path="/profile/edit" element={<EditProfile user={user} setUser={setUser} />} />
-          <Route path="/payment" element={<Payment user={user} setUser={setUser} />} />
-          <Route path="/register" element={<Register setUser={setUser} />} />
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/order-success" element={<OrderSuccess />} />
-          <Route path="/wishlist" element={<Wishlist />} />
-        </Routes>
+        <Box sx={{ maxWidth: '1400px', margin: '0 auto', px: 4, py: 6 }}>
+          <Routes>
+            <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} />} />
+            <Route path="/cosmetic/:id" element={<Cosmetic addCosmeticToBasket={handleAddCosmetic} />} />
+            <Route path="/basket" element={<Basket basketState={basket}
+              onIncrease={handleIncrease}
+              onDecrease={handleDecrease}
+              onOrder={handleOrder} />} />
+            <Route path="/profile" element={<Profile user={user} orders={orders} onOrderAgain={handleAddCosmetic} />} />
+            <Route path="/profile/edit" element={<EditProfile user={user} setUser={setUser} />} />
+            <Route path="/payment" element={<Payment user={user} setUser={setUser} />} />
+            <Route path="/register" element={<Register setUser={setUser} />} />
+            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+          </Routes>
+        </Box>
       </Container>
     </>
   )

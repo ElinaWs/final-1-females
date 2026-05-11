@@ -37,9 +37,8 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
     return (
         <Container className="main-container">
             <Box sx={{ display: 'grid', gridTemplateColumns: { md: '1fr 1fr' }, gap: 6 }}>
-                <Box sx={{ backgroundColor: '#fff', borderRadius: '32px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {/* Image placeholder */}
-                    <Typography color="text.secondary">Изображение товара</Typography>
+                <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '32px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    {/* Pink placeholder */}
                 </Box>
                 
                 <Box>
