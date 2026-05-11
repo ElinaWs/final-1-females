@@ -11,36 +11,6 @@ interface Props {
 }
 
 export const Home = ({ addCosmeticToBasket }: Props) => {
-    const [cosmetics, setCosmetics] = useState<ICosmetic[]>([]);
-    const [loading, setLoading] = useState(false);
-
-    const fetchCosmetics = useCallback(async () => {
-        try {
-            setLoading(true);
-            const cosmeticsResponse = await axiosApi.get<ICosmeticList | null>('/cosmetics.json');
-            const cosmetics = cosmeticsResponse.data;
-
-            if (!cosmetics) {
-                return;
-            }
-            const newCosmetics: ICosmetic[] = Object.keys(cosmetics).map(key => {
-                const cosmetic = cosmetics[key];
-                return {
-                    ...cosmetic,
-                    id: key,
-                };
-            });
-            setCosmetics(newCosmetics);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        void fetchCosmetics()
-    }, [fetchCosmetics]);
-
-
     return (
         <Box sx={{ pb: 10 }}>
             {/* Hero Banner (Centella) */}

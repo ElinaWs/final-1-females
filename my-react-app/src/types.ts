@@ -1,7 +1,15 @@
+export interface IReview {
+    userName: string;
+    stars: number;
+    text: string;
+}
+
 export interface ICosmeticShort {
     name: string
     description: string
     price: number
+    ingredients?: string
+    reviews?: IReview[]
 }
 
 export interface ICosmeticList {

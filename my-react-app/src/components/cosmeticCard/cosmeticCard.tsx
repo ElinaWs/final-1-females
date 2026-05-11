@@ -18,14 +18,20 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
     }
 
     return (
-        <Card sx={{ 
-            borderRadius: '24px', 
-            boxShadow: '0 4px 20px rgba(0,0,0,0.03)', 
-            border: 'none',
-            backgroundColor: '#fff',
-            overflow: 'hidden',
-            p: 2
-        }}>
+        <Card 
+            onClick={() => goToCosmeticPage(cosmetic.id)}
+            sx={{ 
+                borderRadius: '24px', 
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)', 
+                border: 'none',
+                backgroundColor: '#fff',
+                overflow: 'hidden',
+                p: 2,
+                cursor: 'pointer',
+                transition: 'transform 0.2s',
+                '&:hover': { transform: 'translateY(-4px)' }
+            }}
+        >
             <Box sx={{ 
                 height: '220px', 
                 backgroundColor: '#FFD1DC', // Pink placeholder
@@ -51,7 +57,10 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
                     <Button 
                         variant="outlined" 
                         size="small"
-                        onClick={() => addCosmeticToBasket(cosmetic)}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            addCosmeticToBasket(cosmetic);
+                        }}
                         sx={{ 
                             borderRadius: '50px', 
                             textTransform: 'none', 
