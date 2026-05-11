@@ -24,6 +24,7 @@ function App() {
     totalPrice: 0
   })
 
+  const [searchValue, setSearchValue] = useState('')
   const [user, setUser] = useState<IUser | null>(null)
   const [orders, setOrders] = useState<IOrder[]>([])
 
@@ -88,6 +89,8 @@ function App() {
         totalCount={basket.totalCount}
         totalPrice={basket.totalPrice}
         onProfileClick={handleProfileClick}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
       />
       <Container
         maxWidth={false}
@@ -99,7 +102,7 @@ function App() {
       >
         <Box sx={{ maxWidth: '1400px', margin: '0 auto', px: 4, py: 6 }}>
           <Routes>
-            <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} />} />
+            <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} searchValue={searchValue} />} />
             <Route path="/cosmetic/:id" element={<Cosmetic addCosmeticToBasket={handleAddCosmetic} />} />
             <Route path="/basket" element={<Basket basketState={basket}
               onIncrease={handleIncrease}

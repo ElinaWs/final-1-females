@@ -15,9 +15,11 @@ interface Props {
     totalCount: number;
     totalPrice: number;
     onProfileClick: () => void;
+    searchValue: string;
+    onSearchChange: (value: string) => void;
 }
 
-export const Header = ({ totalCount, totalPrice, onProfileClick }: Props) => {
+export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, onSearchChange }: Props) => {
     const navigate = useNavigate();
 
     const gohome = () => {
@@ -94,6 +96,8 @@ export const Header = ({ totalCount, totalPrice, onProfileClick }: Props) => {
                         <InputBase
                             sx={{ ml: 1, flex: 1 }}
                             placeholder="Введите название продукта или бренда"
+                            value={searchValue}
+                            onChange={(e) => onSearchChange(e.target.value)}
                         />
                         <IconButton type="button" sx={{ p: '10px' }} aria-label="search">
                             <SearchIcon />
