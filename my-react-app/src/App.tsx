@@ -12,6 +12,7 @@ import { Login } from "./pages/login/Login"
 import { OrderSuccess } from "./pages/orderSuccess/OrderSuccess"
 import { Wishlist } from "./pages/wishlist/Wishlist"
 import { Footer } from "./components/footer/Footer"
+import { AddCard } from "./pages/addCard/AddCard"
 import { useState } from "react"
 import type { IBasketState, ICosmetic, IUser, IOrder } from "./types"
 import { addCosmeticToBasket, increaseCosmeticCount, decreaseCosmeticCount } from "./utils/CosmeticHelpers"
@@ -99,6 +100,7 @@ function App() {
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/add-card" element={<AddCard />} />
           </Routes>
         </Box>
       </Container>

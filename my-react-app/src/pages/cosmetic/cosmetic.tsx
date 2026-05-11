@@ -37,9 +37,7 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
     return (
         <Container className="main-container">
             <Box sx={{ display: 'grid', gridTemplateColumns: { md: '1fr 1fr' }, gap: 6 }}>
-                <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '32px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    {/* Pink placeholder */}
-                </Box>
+                <Box sx={{ backgroundColor: '#FFD1DC', borderRadius: '32px', height: '400px', display: 'flex', alignItems: 'center', justifyContent: 'center' }} />
                 
                 <Box>
                     <Typography variant="h2" sx={{ fontWeight: 700, mb: 1 }}>{cosmetic.name}</Typography>

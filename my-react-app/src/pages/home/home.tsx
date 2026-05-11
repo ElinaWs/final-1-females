@@ -44,18 +44,16 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
     return (
         <Box sx={{ pb: 10 }}>
             {/* Hero Banner (Centella) */}
-            <Box sx={{ 
-                width: '100%', 
-                height: '500px', 
-                borderRadius: '32px', 
+            <Box sx={{
+                width: '100%',
+                height: '500px',
+                borderRadius: '32px',
                 mb: 6,
                 backgroundColor: '#FFD1DC', // Pink placeholder
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
-            }}>
-                <Typography variant="h5" color="text.secondary">Баннер (Розовый квадрат)</Typography>
-            </Box>
+            }} />
 
             {/* Section Title */}
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, cursor: 'pointer' }}>
@@ -78,18 +76,16 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
 
             {/* NEEDLY Section */}
             <Box sx={{ mt: 10 }}>
-                <Box sx={{ 
-                    width: '100%', 
-                    height: '500px', 
-                    borderRadius: '32px', 
+                <Box sx={{
+                    width: '100%',
+                    height: '500px',
+                    borderRadius: '32px',
                     mb: 6,
                     backgroundColor: '#FFD1DC', // Pink placeholder
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
-                }}>
-                    <Typography variant="h5" color="text.secondary">Баннер NEEDLY (Розовый квадрат)</Typography>
-                </Box>
+                }} />
 
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 4, cursor: 'pointer' }}>
                     <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>
@@ -118,25 +114,23 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 4, color: '#2D3436' }}>
                         Anti-Pollution Repairing Toner
                     </Typography>
-                    
+
                     <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
                         Деликатный восстанавливающий тонер с экстрактом лотоса, созданный для ежедневной защиты кожи в условиях города. Легкая текстура мгновенно освежает, глубоко увлажняет и помогает восстановить естественный баланс кожи.
                     </Typography>
                     <Box sx={{ borderBottom: '1px solid #DFE6E9', mb: 3 }} />
-                    
+
                     <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
                         Формула направлена на нейтрализацию воздействия загрязнений окружающей среды, снижая признаки усталости и укрепление защитного барьера. Кожа становится более гладкой, мягкой и сияющей уже после первых применений.
                     </Typography>
                     <Box sx={{ borderBottom: '1px solid #DFE6E9', mb: 3 }} />
-                    
+
                     <Typography sx={{ color: '#636E72', mb: 3, lineHeight: 1.8 }}>
                         Экстракт Nelumbo Nucifera известен своими успокаивающими и антиоксидантными свойствами, помогая коже выглядеть чистой, свежей и здоровой. Идеально подготавливает кожу к дальнейшему уходу, усиливая действие сывороток и кремов. Подходит для всех типов кожи, включая чувствительную.
                     </Typography>
                 </Box>
-                
-                <Box sx={{ height: '700px', borderRadius: '32px', backgroundColor: '#FFD1DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                     <Typography variant="h5" color="text.secondary">Изображение (Розовый квадрат)</Typography>
-                </Box>
+
+                <Box sx={{ height: '700px', borderRadius: '32px', backgroundColor: '#FFD1DC', display: 'flex', alignItems: 'center', justifyContent: 'center' }} />
             </Box>
 
             {/* BOUTIJOUR Section */}
@@ -160,11 +154,11 @@ export const Home = ({ addCosmeticToBasket }: Props) => {
             </Box>
 
             {/* COLLAGEN Box Section */}
-            <Box sx={{ 
-                mt: 15, 
+            <Box sx={{
+                mt: 15,
                 p: 6,
             }}>
-                <Box sx={{ 
+                <Box sx={{
                     mb: 4,
                     textAlign: 'center'
                 }}>
