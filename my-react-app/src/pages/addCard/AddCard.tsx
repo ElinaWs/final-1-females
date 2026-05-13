@@ -46,7 +46,6 @@ export const AddCard = () => {
     };
 
     const submitHandler = () => {
-        // Mock save
         alert("Карта успешно привязана!");
         navigate('/profile');
     };

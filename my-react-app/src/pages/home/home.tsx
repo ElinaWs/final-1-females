@@ -1,18 +1,16 @@
-import { useCallback, useEffect, useState } from 'react';
-import type { ICosmetic, ICosmeticList } from '../../types';
-import { axiosApi } from '../../axios';
+import type { ICosmetic, SkinTone } from '../../types';
 import { CosmeticCard } from '../../components/cosmeticCard/cosmeticCard';
 import styles from "./styles.module.css"
-import { Box, Typography, TextField, InputAdornment } from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
+import { Box, Typography } from '@mui/material';
 import { centellaProducts, needlyProducts, boutijourProducts, collagenProducts } from '../../data/dataCard';
 
 interface Props {
     addCosmeticToBasket: (cosmetic: ICosmetic) => void;
     searchValue: string;
+    selectedSkinTones: SkinTone[];
 }
 
-export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
+export const Home = ({ addCosmeticToBasket, searchValue, selectedSkinTones }: Props) => {
     const allProducts = [
         ...centellaProducts,
         ...needlyProducts,
@@ -21,9 +19,11 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
     ];
 
     const filterProducts = (products: ICosmetic[]) => {
-        return products.filter(p => 
-            p.name.toLowerCase().startsWith(searchValue.toLowerCase())
-        );
+        return products.filter(p => {
+            const matchesSearch = p.name.toLowerCase().includes(searchValue.toLowerCase());
+            const matchesTone = selectedSkinTones.length === 0 || (p.skinTone && selectedSkinTones.includes(p.skinTone));
+            return matchesSearch && matchesTone;
+        });
     }
 
     const filteredAll = filterProducts(allProducts);
@@ -31,14 +31,13 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
 
     return (
         <Box sx={{ pb: 10 }}>
-            {/* Hero Banner (Only if not searching) */}
             {!isSearching && (
                 <Box sx={{
                     width: '100%',
                     height: '500px',
                     borderRadius: '32px',
                     mb: 6,
-                    backgroundColor: '#FFD1DC', 
+                    backgroundColor: '#FFD1DC',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center'
@@ -70,7 +69,7 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
                         <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>&gt;</Typography>
                     </Box>
                     <div className={styles.wrapper}>
-                        {centellaProducts.map(cosmetic => (
+                        {filterProducts(centellaProducts).map(cosmetic => (
                             <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                         ))}
                     </div>
@@ -82,7 +81,7 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
                             <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>&gt;</Typography>
                         </Box>
                         <div className={styles.wrapper}>
-                            {needlyProducts.map(cosmetic => (
+                            {filterProducts(needlyProducts).map(cosmetic => (
                                 <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                             ))}
                         </div>
@@ -105,7 +104,7 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
                             <Typography variant="h4" sx={{ ml: 2, fontWeight: 300 }}>&gt;</Typography>
                         </Box>
                         <div className={styles.wrapper}>
-                            {boutijourProducts.map(cosmetic => (
+                            {filterProducts(boutijourProducts).map(cosmetic => (
                                 <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                             ))}
                         </div>
@@ -116,7 +115,7 @@ export const Home = ({ addCosmeticToBasket, searchValue }: Props) => {
                             <Typography variant="h4" sx={{ fontWeight: 600, fontFamily: 'serif' }}>COLLAGEN &gt;</Typography>
                         </Box>
                         <div className={styles.wrapper}>
-                            {collagenProducts.map(cosmetic => (
+                            {filterProducts(collagenProducts).map(cosmetic => (
                                 <CosmeticCard key={cosmetic.id} cosmetic={cosmetic} addCosmeticToBasket={addCosmeticToBasket} />
                             ))}
                         </div>

@@ -4,6 +4,8 @@ export interface IReview {
     text: string;
 }
 
+export type SkinTone = 'dark' | 'tanned' | 'light';
+
 export interface ICosmeticShort {
     name: string
     description: string
@@ -18,6 +20,7 @@ export interface ICosmeticList {
 
 export interface ICosmetic extends ICosmeticShort {
     id: string
+    skinTone?: SkinTone
 }
 
 export interface IBasket {

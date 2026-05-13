@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
-import { Container, Typography, Box, Accordion, AccordionSummary, AccordionDetails, Button, CircularProgress, IconButton } from '@mui/material';
+import { Container, Typography, Box, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import StarIcon from '@mui/icons-material/Star';
 import type { ICosmetic } from '../../types';
@@ -16,7 +16,6 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
     const [selectedVolume, setSelectedVolume] = useState('150 мл');
 
     useEffect(() => {
-        // Flatten all product lists to find the one with the matching ID
         const allProducts = [
             ...allData.centellaProducts,
             ...allData.needlyProducts,
@@ -40,17 +39,16 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
             </Typography>
 
             <Box sx={{ display: 'grid', gridTemplateColumns: { md: '1fr 1.2fr' }, gap: 8, mb: 10 }}>
-                {/* Product Image */}
-                <Box sx={{ 
-                    backgroundColor: '#FFD1DC', 
-                    borderRadius: '24px', 
-                    height: '600px', 
-                    width: '100%' 
+                <Box sx={{
+                    backgroundColor: '#FFD1DC',
+                    borderRadius: '24px',
+                    height: '600px',
+                    width: '100%'
                 }} />
-                
+
                 <Box sx={{ pt: 2 }}>
                     <Typography variant="h3" sx={{ fontWeight: 600, mb: 1 }}>{cosmetic.name}</Typography>
-                    
+
                     <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                         <Box sx={{ display: 'flex', color: '#FFD700', mr: 1 }}>
                             {[...Array(5)].map((_, i) => <StarIcon key={i} fontSize="small" />)}
@@ -64,12 +62,12 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
 
                     <Box sx={{ display: 'flex', gap: 2, mb: 8 }}>
                         {volumes.map(v => (
-                            <Box 
+                            <Box
                                 key={v}
                                 onClick={() => setSelectedVolume(v)}
-                                sx={{ 
-                                    px: 2, py: 1, 
-                                    border: '1px solid #DFE6E9', 
+                                sx={{
+                                    px: 2, py: 1,
+                                    border: '1px solid #DFE6E9',
                                     borderRadius: '8px',
                                     cursor: 'pointer',
                                     backgroundColor: selectedVolume === v ? '#F0F0F0' : 'transparent',
@@ -82,14 +80,14 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
                     </Box>
 
                     <Typography variant="h4" sx={{ fontWeight: 700, mb: 4 }}>{cosmetic.price} С</Typography>
-                    
+
                     <Box sx={{ display: 'flex', gap: 3 }}>
-                        <Button 
-                            variant="contained" 
-                            sx={{ 
-                                backgroundColor: '#9B7EBD', 
-                                borderRadius: '12px', 
-                                px: 6, py: 1.5, 
+                        <Button
+                            variant="contained"
+                            sx={{
+                                backgroundColor: '#9B7EBD',
+                                borderRadius: '12px',
+                                px: 6, py: 1.5,
                                 textTransform: 'none',
                                 fontSize: '1.1rem',
                                 fontWeight: 600,
@@ -98,14 +96,14 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
                         >
                             купить
                         </Button>
-                        <Button 
-                            variant="outlined" 
+                        <Button
+                            variant="outlined"
                             onClick={() => addCosmeticToBasket(cosmetic)}
-                            sx={{ 
-                                color: '#000', 
+                            sx={{
+                                color: '#000',
                                 borderColor: '#DFE6E9',
-                                borderRadius: '12px', 
-                                px: 6, py: 1.5, 
+                                borderRadius: '12px',
+                                px: 6, py: 1.5,
                                 textTransform: 'none',
                                 fontSize: '1.1rem',
                                 fontWeight: 600,
@@ -118,7 +116,6 @@ export const Cosmetic = ({ addCosmeticToBasket }: Props) => {
                 </Box>
             </Box>
 
-            {/* Collapsible Sections */}
             <Box sx={{ mt: 10 }}>
                 <Accordion sx={{ boxShadow: 'none', backgroundColor: 'transparent', '&:before': { display: 'none' }, borderBottom: '1px solid #DFE6E9' }}>
                     <AccordionSummary expandIcon={<ExpandMoreIcon />}>

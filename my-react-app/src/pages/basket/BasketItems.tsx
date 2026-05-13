@@ -1,4 +1,4 @@
-import { Box, Typography, IconButton, Checkbox } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import type { IBasket } from "../../types";
 
 interface Props {
@@ -24,12 +24,12 @@ export const BasketItems = ({ items, onIncrease, onDecrease, selectedIds, onTogg
             }}
           >
             <Box sx={{ display: 'flex', gap: 4, alignItems: 'center' }}>
-              <Box 
+              <Box
                 onClick={() => onToggleSelect(item.cosmetic.id)}
-                sx={{ 
-                  width: '24px', 
-                  height: '24px', 
-                  borderRadius: '50%', 
+                sx={{
+                  width: '24px',
+                  height: '24px',
+                  borderRadius: '50%',
                   border: '2px solid #9B7EBD',
                   cursor: 'pointer',
                   display: 'flex',
@@ -48,29 +48,27 @@ export const BasketItems = ({ items, onIncrease, onDecrease, selectedIds, onTogg
                 }}
               />
 
-              {/* Image Placeholder */}
-              <Box sx={{ 
-                  width: '180px', 
-                  height: '180px', 
-                  backgroundColor: '#FFD1DC', 
-                  borderRadius: '16px' 
+              <Box sx={{
+                width: '180px',
+                height: '180px',
+                backgroundColor: '#FFD1DC',
+                borderRadius: '16px'
               }} />
-              
+
               <Box sx={{ display: 'flex', flexDirection: 'column', height: '180px', justifyContent: 'space-between', textAlign: 'left' }}>
                 <Typography sx={{ fontWeight: 600, fontSize: '1.1rem', maxWidth: '300px' }}>
                   {item.cosmetic.name}
                 </Typography>
-                
-                {/* Quantity Selector Box */}
-                <Box sx={{ 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    border: '1px solid #B2BEC3', 
-                    borderRadius: '4px',
-                    width: 'fit-content',
+
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  border: '1px solid #B2BEC3',
+                  borderRadius: '4px',
+                  width: 'fit-content',
                 }}>
-                  <IconButton 
-                    size="small" 
+                  <IconButton
+                    size="small"
                     onClick={() => onDecrease(item.cosmetic.id)}
                     sx={{ color: '#000', fontSize: '1rem' }}
                   >
@@ -79,8 +77,8 @@ export const BasketItems = ({ items, onIncrease, onDecrease, selectedIds, onTogg
                   <Typography sx={{ px: 2, fontWeight: 600 }}>
                     {item.count < 10 ? `0${item.count}` : item.count}
                   </Typography>
-                  <IconButton 
-                    size="small" 
+                  <IconButton
+                    size="small"
                     onClick={() => onIncrease(item.cosmetic.id)}
                     sx={{ color: '#000', fontSize: '1rem' }}
                   >

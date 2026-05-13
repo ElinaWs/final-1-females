@@ -1,4 +1,4 @@
-import { Box, Button, Container, Typography, Checkbox, FormControlLabel } from "@mui/material";
+import { Box, Button, Container, Typography } from "@mui/material";
 import type { IBasket, IBasketState } from "../../types";
 import { Link } from "react-router";
 import { BasketItems } from "./BasketItems";
@@ -9,14 +9,15 @@ interface Props {
   onIncrease: (id: string) => void;
   onDecrease: (id: string) => void;
   onOrder: (itemsToOrder: IBasket[]) => void;
+  onClear: () => void;
 }
 
-export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) => {
+export const Basket = ({ basketState, onIncrease, onDecrease, onOrder, onClear }: Props) => {
   const { items } = basketState;
   const [selectedIds, setSelectedIds] = useState<string[]>(items.map(i => i.cosmetic.id));
 
   const toggleSelect = (id: string) => {
-    setSelectedIds(prev => 
+    setSelectedIds(prev =>
       prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]
     );
   };
@@ -51,11 +52,11 @@ export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) 
       </Typography>
 
       <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, cursor: 'pointer' }} onClick={toggleSelectAll}>
-        <Box 
-          sx={{ 
-            width: '24px', 
-            height: '24px', 
-            borderRadius: '50%', 
+        <Box
+          sx={{
+            width: '24px',
+            height: '24px',
+            borderRadius: '50%',
             border: '2px solid #9B7EBD',
             mr: 1.5,
             display: 'flex',
@@ -74,6 +75,13 @@ export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) 
           }}
         />
         <Typography sx={{ fontWeight: 500, color: '#2D3436' }}>Выбрать все</Typography>
+        <Box sx={{ flexGrow: 1 }} />
+        <Button 
+          onClick={onClear} 
+          sx={{ color: '#E07C7C', textTransform: 'none', fontWeight: 600 }}
+        >
+          Очистить всё
+        </Button>
       </Box>
 
       <Box sx={{ mb: 10 }}>
@@ -90,8 +98,8 @@ export const Basket = ({ basketState, onIncrease, onDecrease, onOrder }: Props) 
         variant="outlined"
         disabled={selectedIds.length === 0}
         onClick={() => onOrder(selectedItems)}
-        sx={{ 
-          color: '#E07C7C', 
+        sx={{
+          color: '#E07C7C',
           borderColor: '#E07C7C',
           borderRadius: '12px',
           px: 6,

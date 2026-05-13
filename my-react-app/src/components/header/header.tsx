@@ -1,4 +1,3 @@
-import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -9,7 +8,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
 import SearchIcon from '@mui/icons-material/Search';
 import MenuIcon from '@mui/icons-material/Menu';
-import { InputBase, Paper } from '@mui/material';
+import { InputBase, Paper, Menu, MenuItem, Checkbox, ListItemText, Badge } from '@mui/material';
+import type { SkinTone } from '../../types';
+import { useState } from 'react';
 
 interface Props {
     totalCount: number;
@@ -17,10 +18,34 @@ interface Props {
     onProfileClick: () => void;
     searchValue: string;
     onSearchChange: (value: string) => void;
+    selectedSkinTones: SkinTone[];
+    onSkinTonesChange: (tones: SkinTone[]) => void;
 }
 
-export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, onSearchChange }: Props) => {
+export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, onSearchChange, selectedSkinTones, onSkinTonesChange }: Props) => {
     const navigate = useNavigate();
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+    const handleToneClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleToggleTone = (tone: SkinTone) => {
+        const newTones = selectedSkinTones.includes(tone)
+            ? selectedSkinTones.filter(t => t !== tone)
+            : [...selectedSkinTones, tone];
+        onSkinTonesChange(newTones);
+    };
+
+    const skinTones: { value: SkinTone; label: string }[] = [
+        { value: 'light', label: 'светлый' },
+        { value: 'tanned', label: 'смуглый' },
+        { value: 'dark', label: 'темный' }
+    ];
 
     const gohome = () => {
         navigate("/")
@@ -32,22 +57,21 @@ export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, on
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            {/* Top Navigation Bar */}
             <Box sx={{ backgroundColor: '#F8F5F2', py: 1 }}>
                 <Toolbar sx={{ justifyContent: 'space-between', maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
-                    <Typography 
-                        variant="h4" 
+                    <Typography
+                        variant="h4"
                         onClick={gohome}
-                        sx={{ 
-                            fontWeight: 700, 
-                            color: '#9B7EBD', 
+                        sx={{
+                            fontWeight: 700,
+                            color: '#9B7EBD',
                             cursor: 'pointer',
                             flex: 1
                         }}
                     >
                         BeautyMarket
                     </Typography>
-                    
+
                     <Box sx={{ display: 'flex', gap: 4 }}>
                         {['бренды', 'о нас', 'доставка', 'контакты'].map((link) => (
                             <Button key={link} sx={{ color: '#2D3436', textTransform: 'none', fontWeight: 600, fontSize: '1.1rem' }}>
@@ -59,34 +83,56 @@ export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, on
                 </Toolbar>
             </Box>
 
-            {/* Search and Category Bar */}
             <Box sx={{ backgroundColor: '#F0F0F0', py: 2 }}>
                 <Toolbar sx={{ gap: 2, maxWidth: '1400px', margin: '0 auto', width: '100%' }}>
                     <Button
                         variant="contained"
+                        onClick={handleToneClick}
                         startIcon={<MenuIcon />}
                         sx={{ 
                             backgroundColor: '#fff', 
                             color: '#000', 
                             borderRadius: '50px', 
                             textTransform: 'none',
-                            px: 4,
+                            px: 3,
                             py: 1.5,
                             boxShadow: 'none',
                             fontWeight: 600,
+                            whiteSpace: 'nowrap',
                             '&:hover': { backgroundColor: '#f5f5f5', boxShadow: 'none' }
                         }}
                     >
-                        Категории
+                        Категории {selectedSkinTones.length > 0 && `(${selectedSkinTones.length})`}
                     </Button>
+                    <Menu
+                        anchorEl={anchorEl}
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                        slotProps={{
+                            paper: {
+                                sx: {
+                                    borderRadius: '16px',
+                                    mt: 1,
+                                    boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+                                }
+                            }
+                        }}
+                    >
+                        {skinTones.map((tone) => (
+                            <MenuItem key={tone.value} onClick={() => handleToggleTone(tone.value)}>
+                                <Checkbox checked={selectedSkinTones.includes(tone.value)} />
+                                <ListItemText primary={tone.label} />
+                            </MenuItem>
+                        ))}
+                    </Menu>
 
                     <Paper
                         component="form"
-                        sx={{ 
-                            p: '2px 4px', 
-                            display: 'flex', 
-                            alignItems: 'center', 
-                            flexGrow: 1, 
+                        sx={{
+                            p: '2px 4px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            flexGrow: 1,
                             borderRadius: '50px',
                             boxShadow: 'none',
                             backgroundColor: '#fff',
@@ -105,21 +151,30 @@ export const Header = ({ totalCount, totalPrice, onProfileClick, searchValue, on
                     </Paper>
 
                     <Box sx={{ display: 'flex', gap: 2 }}>
-                        <IconButton 
+                        <IconButton
                             onClick={onProfileClick}
                             sx={{ backgroundColor: '#fff', '&:hover': { backgroundColor: '#f5f5f5' } }}
                         >
                             <AccountCircle />
                         </IconButton>
-                        <IconButton 
-                            onClick={goBasket}
-                            sx={{ backgroundColor: '#fff', '&:hover': { backgroundColor: '#f5f5f5' } }}
-                        >
-                            <ShoppingBasketIcon />
-                        </IconButton>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                            <IconButton
+                                onClick={goBasket}
+                                sx={{ backgroundColor: '#fff', '&:hover': { backgroundColor: '#f5f5f5' } }}
+                            >
+                                <Badge badgeContent={totalCount} color="secondary">
+                                    <ShoppingBasketIcon />
+                                </Badge>
+                            </IconButton>
+                            {totalPrice > 0 && (
+                                <Typography sx={{ fontWeight: 700, color: '#2D3436', ml: 1 }}>
+                                    {totalPrice} С
+                                </Typography>
+                            )}
+                        </Box>
                     </Box>
                 </Toolbar>
             </Box>
         </Box>
     )
-};
+};

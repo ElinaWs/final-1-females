@@ -2,7 +2,7 @@ import { Box, Button, Container, Typography, Paper } from "@mui/material";
 import { useNavigate } from "react-router";
 import type { IUser, IOrder, ICosmetic } from "../../types";
 import { CosmeticCard } from "../../components/cosmeticCard/cosmeticCard";
-import styles from "../home/styles.module.css"; // Reuse grid styles
+import styles from "../home/styles.module.css";
 
 interface Props {
     user: IUser | null;
@@ -30,14 +30,12 @@ export const Profile = ({ user, orders, onOrderAgain }: Props) => {
 
     const activeOrders = orders.filter(o => o.status === 'in-transit');
     
-    // Get unique products from all orders for the "ordered before" section
     const orderedBefore = Array.from(new Set(orders.flatMap(o => o.items).map(item => item.cosmetic.id)))
         .map(id => orders.flatMap(o => o.items).find(item => item.cosmetic.id === id)?.cosmetic)
         .filter((c): c is ICosmetic => c !== undefined);
 
     return (
         <Box sx={{ pb: 10 }}>
-            {/* User Info Header */}
             <Paper sx={{ 
                 p: 4, 
                 borderRadius: '32px', 

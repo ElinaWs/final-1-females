@@ -1,5 +1,4 @@
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import type { ICosmetic } from '../../types';
 import { Box, Button, Typography } from '@mui/material';
@@ -18,11 +17,11 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
     }
 
     return (
-        <Card 
+        <Card
             onClick={() => goToCosmeticPage(cosmetic.id)}
-            sx={{ 
-                borderRadius: '24px', 
-                boxShadow: '0 4px 20px rgba(0,0,0,0.03)', 
+            sx={{
+                borderRadius: '24px',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
                 border: 'none',
                 backgroundColor: '#fff',
                 overflow: 'hidden',
@@ -32,39 +31,54 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
                 '&:hover': { transform: 'translateY(-4px)' }
             }}
         >
-            <Box sx={{ 
-                height: '220px', 
-                backgroundColor: '#FFD1DC', // Pink placeholder
-                borderRadius: '16px', 
+            <Box sx={{
+                height: '220px',
+                backgroundColor: '#FFD1DC',
+                borderRadius: '16px',
                 mb: 2,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
             }}>
-                 {/* Pink placeholder for image */}
             </Box>
-            
+
             <CardContent sx={{ p: 1 }}>
-                <Typography variant="body2" sx={{ fontWeight: 500, mb: 1, color: '#2D3436', height: '40px', overflow: 'hidden' }}>
+                <Typography variant="body2" sx={{ fontWeight: 500, mb: 0.5, color: '#2D3436', height: '40px', overflow: 'hidden' }}>
                     {cosmetic.name}
                 </Typography>
-                
+                {cosmetic.skinTone && (
+                    <Typography 
+                        variant="caption" 
+                        sx={{ 
+                            display: 'inline-block',
+                            backgroundColor: cosmetic.skinTone === 'light' ? '#F9E4D4' : cosmetic.skinTone === 'tanned' ? '#D2B48C' : '#8B4513',
+                            color: cosmetic.skinTone === 'dark' ? '#fff' : '#000',
+                            px: 1, 
+                            borderRadius: '4px',
+                            fontWeight: 600,
+                            mb: 1
+                        }}
+                    >
+                        {cosmetic.skinTone === 'light' ? 'светлый' : cosmetic.skinTone === 'tanned' ? 'смуглый' : 'темный'}
+                    </Typography>
+                )}
+
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
                     <Typography variant="h6" sx={{ fontWeight: 700 }}>
                         {cosmetic.price} С
                     </Typography>
-                    
-                    <Button 
-                        variant="outlined" 
+
+                    <Button
+                        variant="outlined"
                         size="small"
                         onClick={(e) => {
                             e.stopPropagation();
                             addCosmeticToBasket(cosmetic);
                         }}
-                        sx={{ 
-                            borderRadius: '50px', 
-                            textTransform: 'none', 
-                            color: '#2D3436', 
+                        sx={{
+                            borderRadius: '50px',
+                            textTransform: 'none',
+                            color: '#2D3436',
                             borderColor: '#DFE6E9',
                             fontSize: '0.75rem',
                             px: 2,
@@ -77,4 +91,4 @@ export const CosmeticCard = ({ cosmetic, addCosmeticToBasket }: Props) => {
             </CardContent>
         </Card>
     )
-}
+}

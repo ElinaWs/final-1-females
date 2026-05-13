@@ -14,7 +14,7 @@ import { Wishlist } from "./pages/wishlist/Wishlist"
 import { Footer } from "./components/footer/Footer"
 import { AddCard } from "./pages/addCard/AddCard"
 import { useState } from "react"
-import type { IBasketState, ICosmetic, IUser, IOrder } from "./types"
+import type { IBasketState, ICosmetic, IUser, IOrder, SkinTone } from "./types"
 import { addCosmeticToBasket, increaseCosmeticCount, decreaseCosmeticCount } from "./utils/CosmeticHelpers"
 
 function App() {
@@ -25,6 +25,7 @@ function App() {
   })
 
   const [searchValue, setSearchValue] = useState('')
+  const [selectedSkinTones, setSelectedSkinTones] = useState<SkinTone[]>([])
   const [user, setUser] = useState<IUser | null>(null)
   const [orders, setOrders] = useState<IOrder[]>([])
 
@@ -61,10 +62,9 @@ function App() {
       date: new Date().toLocaleDateString()
     }
     setOrders(prev => [newOrder, ...prev])
-    
-    // Remove ordered items from basket
+
     setBasket(prev => {
-      const remainingItems = prev.items.filter(item => 
+      const remainingItems = prev.items.filter(item =>
         !itemsToOrder.find(ordered => ordered.cosmetic.id === item.cosmetic.id)
       );
       const totalCount = remainingItems.reduce((acc, item) => acc + item.count, 0);
@@ -91,6 +91,8 @@ function App() {
         onProfileClick={handleProfileClick}
         searchValue={searchValue}
         onSearchChange={setSearchValue}
+        selectedSkinTones={selectedSkinTones}
+        onSkinTonesChange={setSelectedSkinTones}
       />
       <Container
         maxWidth={false}
@@ -102,12 +104,13 @@ function App() {
       >
         <Box sx={{ maxWidth: '1400px', margin: '0 auto', px: 4, py: 6 }}>
           <Routes>
-            <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} searchValue={searchValue} />} />
+            <Route path="/" element={<Home addCosmeticToBasket={handleAddCosmetic} searchValue={searchValue} selectedSkinTones={selectedSkinTones} />} />
             <Route path="/cosmetic/:id" element={<Cosmetic addCosmeticToBasket={handleAddCosmetic} />} />
             <Route path="/basket" element={<Basket basketState={basket}
               onIncrease={handleIncrease}
               onDecrease={handleDecrease}
-              onOrder={handleOrder} />} />
+              onOrder={handleOrder}
+              onClear={clearBasket} />} />
             <Route path="/profile" element={<Profile user={user} orders={orders} onOrderAgain={handleAddCosmetic} />} />
             <Route path="/profile/edit" element={<EditProfile user={user} setUser={setUser} />} />
             <Route path="/payment" element={<Payment user={user} setUser={setUser} />} />
